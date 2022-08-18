@@ -8,6 +8,10 @@ import './Contact.scss'
 
 const Contact = () => {
   const [letterClass, setLetterClass] = useState('text-animate')
+  const [sender_name, set_sender_name] = useState('')
+  const [sender_email, set_sender_email] = useState('')
+  const [subject, set_subject] = useState('')
+  const [message, set_message] = useState('')
   const form = useRef()
 
   // useEffect(() => {
@@ -16,6 +20,19 @@ const Contact = () => {
   //   }, 3000)
   // }, [])
 
+  const handleName = (e) => {
+    set_sender_name(e.target.value)
+  }
+  const handleEmail = (e) => {
+    set_sender_email(e.target.value)
+  }
+  const handleSubject = (e) => {
+    set_subject(e.target.value)
+  }
+  const handlemessage = (e) => {
+    set_message(e.target.value)
+  }
+
   const sendEmail = (e) => {
     e.preventDefault()
 
@@ -23,7 +40,7 @@ const Contact = () => {
       .sendForm(
         'gmail',
         'service_ri8851h',
-        'service_ri8851h',
+        'template_3v1exaj',
         'user_id',
         form.current,
         'your-token'
@@ -59,13 +76,22 @@ const Contact = () => {
             <form ref={form} onSubmit={sendEmail}>
               <ul>
                 <li className="half">
-                  <input placeholder="Name" type="text" name="name" required />
+                  <input
+                    placeholder="Name"
+                    value={sender_name}
+                    type="text"
+                    name="sender_name"
+                    onChange={handleName}
+                    required
+                  />
                 </li>
                 <li className="half">
                   <input
                     placeholder="Email"
                     type="email"
-                    name="email"
+                    name="sender_email"
+                    value={sender_email}
+                    onChange={handleEmail}
                     required
                   />
                 </li>
@@ -74,6 +100,8 @@ const Contact = () => {
                     placeholder="Subject"
                     type="text"
                     name="subject"
+                    value={subject}
+                    onChange={handleSubject}
                     required
                   />
                 </li>
@@ -81,6 +109,8 @@ const Contact = () => {
                   <textarea
                     placeholder="Message"
                     name="message"
+                    value={message}
+                    onChange={handlemessage}
                     required
                   ></textarea>
                 </li>
